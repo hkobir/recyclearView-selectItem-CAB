@@ -13,11 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
@@ -183,10 +185,10 @@ public class AdapterItem extends RecyclerView.Adapter<AdapterItem.ViewHolder> {
         if (isSelectAll) {
             //visible all check and change all item background
             holder.checkItem.setVisibility(View.VISIBLE);
-            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.selected_item_color));
+            holder.itemCard.setBackgroundColor(context.getResources().getColor(R.color.selected_item_color));
         } else {
             holder.checkItem.setVisibility(View.GONE);
-            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+            holder.itemCard.setBackgroundColor(Color.TRANSPARENT);
         }
     }
 
@@ -194,11 +196,11 @@ public class AdapterItem extends RecyclerView.Adapter<AdapterItem.ViewHolder> {
         String item = items.get(holder.getAdapterPosition());
         if (holder.checkItem.getVisibility() == View.GONE) {
             holder.checkItem.setVisibility(View.VISIBLE);
-            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.selected_item_color));
+            holder.itemCard.setBackgroundColor(context.getResources().getColor(R.color.selected_item_color));
             selectList.add(item);
         } else {
             holder.checkItem.setVisibility(View.GONE);
-            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+            holder.itemCard.setBackgroundColor(Color.TRANSPARENT);
             selectList.remove(item);
         }
         itemViewModel.setText(String.valueOf(selectList.size()));  //set selected item size
@@ -212,6 +214,7 @@ public class AdapterItem extends RecyclerView.Adapter<AdapterItem.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout itemCard;
         TextView itemText;
         ImageView checkItem;
 
@@ -219,6 +222,7 @@ public class AdapterItem extends RecyclerView.Adapter<AdapterItem.ViewHolder> {
             super(itemView);
             itemText = itemView.findViewById(R.id.item_text);
             checkItem = itemView.findViewById(R.id.item_check);
+            itemCard = itemView.findViewById(R.id.item_card);
         }
     }
 }
